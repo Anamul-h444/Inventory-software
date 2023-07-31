@@ -19,6 +19,15 @@ export const login = (user) => {
   });
 };
 
+export const update = (user) => {
+  return axios.post(`${API}/update/${id}`, user, {
+    headers: {
+      "Content-Type": "application/json",
+      token: `Bearer${token}`,
+    },
+  });
+};
+
 // let API = "http://localhost:3001/api";
 // export const createCategory = (token, data) => {
 //   return axios.post(`${API}/category`, data, {

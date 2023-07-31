@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import profileReducer from "../slice-state/profileSlice";
+
+import customerReducer from "./slice-slate/customerSlice";
+import loaderReducer from "./slice-slate/loaderSlice";
 
 export default configureStore({
   reducer: {
-    profile: profileReducer,
+    customer: customerReducer,
+    loader: loaderReducer,
   },
 });

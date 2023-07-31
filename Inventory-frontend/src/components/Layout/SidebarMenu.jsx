@@ -32,12 +32,12 @@ export const sidebarItems = [
       {
         title: "New Customer",
         icon: <BsCircle size={12} className="side-bar-subitem-icon" />,
-        url: "/CustomerCreateUpdatePage",
+        url: "/customer/form",
       },
       {
         title: "Customer List",
         icon: <BsCircle size={12} className="side-bar-subitem-icon" />,
-        url: "/CustomerListPage",
+        url: "/customer/list",
       },
     ],
   },

@@ -6,11 +6,15 @@ import { BrowserRouter } from "react-router-dom";
 const App = lazy(() => import("./App.jsx"));
 import { Toaster } from "react-hot-toast";
 import Loader from "./utility/Loader";
+import { Provider } from "react-redux";
+import store from "../src/redux/store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Suspense fallback={<Loader />}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
       <Toaster
         toastOptions={{
           position: "top-right",

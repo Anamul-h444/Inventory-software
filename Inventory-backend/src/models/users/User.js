@@ -23,11 +23,11 @@ userSchema.methods.jenerateJWT = function () {
     {
       _id: this._id,
       email: this.email,
-      role: this.role,
       firstName: this.firstName,
       lastName: this.lastName,
       mobile: this.mobile,
       password: this.password,
+      role: this.role,
     },
     process.env.JWT_SECRET_KEY,
     { expiresIn: "7d" }

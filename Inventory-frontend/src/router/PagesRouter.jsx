@@ -5,6 +5,8 @@ const Login = lazy(() => import("../components/auth/Login"));
 const Registration = lazy(() => import("../components/auth/Registration"));
 const MainLayout = lazy(() => import("../components/Layout/MainLayout"));
 import ProfilePage from "../pages/ProfilePage";
+import CustomerFormPage from "../pages/customer/CustomerFormPage";
+import CustomerListPage from "../pages/customer/CustomerListPage";
 
 const PagesRouter = () => {
   return (
@@ -29,6 +31,24 @@ const PagesRouter = () => {
           </PrivateRoute>
         }
       />
+      {/* Customer Route Start */}
+      <Route
+        path="/customer/form"
+        element={
+          <PrivateRoute>
+            <CustomerFormPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/customer/list"
+        element={
+          <PrivateRoute>
+            <CustomerListPage />
+          </PrivateRoute>
+        }
+      />
+      {/* Customer Route End */}
     </Routes>
   );
 };
