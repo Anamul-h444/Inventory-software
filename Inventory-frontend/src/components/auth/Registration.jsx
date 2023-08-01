@@ -12,16 +12,16 @@ const Registration = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const initialValues = {
-    fName: "",
-    lName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     mobile: "",
     password: "",
   };
 
   const validationSchema = Yup.object({
-    fName: Yup.string().required("Required !"),
-    lName: Yup.string().required("Required !"),
+    firstName: Yup.string().required("Required !"),
+    lastName: Yup.string().required("Required !"),
     mobile: Yup.string()
       .required("Required !")
       .matches(/^(?:\+?88)?01[3-9]\d{8}$/, "Invalid Mobile number !"),
@@ -87,14 +87,14 @@ const Registration = () => {
                 control="input"
                 type="text"
                 label="First Name"
-                name="fName"
+                name="firstName"
                 error={formik.errors.name}
               />
               <FormikControl
                 control="input"
                 type="text"
                 label="Last Name"
-                name="lName"
+                name="lastName"
                 error={formik.errors.name}
               />
               <FormikControl

@@ -7,6 +7,7 @@ import Loader from "../../utility/Loader";
 import { customerListService } from "../../api/ApiCustomer";
 
 const CustomerList = () => {
+  const [pageNo, setPageNo] = useState(2);
   const [perPage, setPerPage] = useState(5);
   const [searchKey, setSearchKey] = useState(0);
 
@@ -15,23 +16,45 @@ const CustomerList = () => {
   const isLoading = useSelector((state) => state.loader.value);
 
   useEffect(() => {
-    customerListService(1, perPage, searchKey);
+    customerListService(pageNo, perPage, searchKey);
   }, []);
 
   const handlePerPage = (e) => {
-    console.log(e);
     setPerPage(e.target.value);
-    customerListService(1, e.target.value, searchKey);
+    customerListService(pageNo, e.target.value, searchKey);
   };
   const handleSearchKey = (e) => {
     setSearchKey(e.target.value);
     if (e.target.value === 0) {
-      customerListService(1, perPage, searchKey);
+      customerListService(pageNo, perPage, searchKey);
     }
   };
   const clickSearch = () => {
-    customerListService(1, perPage, searchKey);
+    customerListService(pageNo, perPage, searchKey);
   };
+
+  // Pagination code
+  const skipRow = function (page, limit) {
+    let array = [];
+    const startIndex = (page - 1) * limit;
+    const endIndex = Math.min(startIndex + limit, customers.length);
+
+    for (let i = startIndex; i < endIndex; i++) {
+      array.push(customers[i]);
+    }
+
+    return array;
+  };
+  skipRow(pageNo, perPage);
+  // Extract the total number of customers from the totalCustomer array
+  const totalCustomersFromBackend =
+    totalCustomer.length > 0 ? totalCustomer[0].total : 0;
+
+  // Calculate the total number of pages based on the total number of customers from the backend and items per page.
+  const totalPages = Math.ceil(totalCustomersFromBackend / perPage);
+  console.log(totalCustomer);
+  console.log(totalPages);
+
   return (
     <>
       <div className="w-full h-full flex justify-center mt-10">
@@ -122,6 +145,13 @@ const CustomerList = () => {
                 </tbody>
               ))}
             </table>
+            {/* paginatio */}
+            <div className="join">
+              <button className="join-item btn">&laquo;</button>
+              <button className="join-item btn">&lsaquo;</button>
+              <button className="join-item btn">&rsaquo;</button>
+              <button className="join-item btn">&raquo;</button>
+            </div>
           </div>
         </div>
       </div>

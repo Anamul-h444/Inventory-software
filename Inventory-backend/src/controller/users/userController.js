@@ -1,8 +1,6 @@
-const { ObjectId } = require("mongodb");
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const { User } = require("../../models/users/User");
-const createToken = require("./createToken");
 
 module.exports.registration = async (req, res) => {
   try {
@@ -143,7 +141,6 @@ module.exports.getUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
   const id = req.params.id;
   const email = req.headers.email;
-
   try {
     const user = await User.find({ _id: id, email: email });
     if (user.length === 0) {

@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
 
 const PlainInput = (props) => {
-  const { label, name, ...rest } = props;
+  const { label, name, type, ...rest } = props;
   return (
     <div className="flex flex-col">
       <label htmlFor="plainInput" className="text-sm">
@@ -12,6 +12,7 @@ const PlainInput = (props) => {
       <Field
         name={name}
         id={name}
+        type={type}
         {...rest}
         className="border border-gray-400 px-4 py-2 rounded-lg  text-sm focus:outline-red-400"
       />

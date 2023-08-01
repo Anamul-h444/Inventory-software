@@ -21,8 +21,8 @@ router.post("/registration", registration);
 router.post("/login", login);
 router.post("/update/:id", [userAuth], updateUser);
 router.delete("/delete/:id", [userAuth, adminAuth], deleteUser);
-router.get("/get/:id", [userAuth, adminAuth], getUserById);
-router.get("/get", [userAuth, adminAuth], getUsers);
+router.get("/get/:id", [userAuth], getUserById);
+router.get("/get", [userAuth], getUsers);
 
 //Reset Password
 router.get("/verifyEmail/:email", VerifyEmail);
