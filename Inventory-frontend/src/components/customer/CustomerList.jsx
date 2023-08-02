@@ -5,9 +5,10 @@ import { BsSearch } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import Loader from "../../utility/Loader";
 import { customerListService } from "../../api/ApiCustomer";
+import { Pagination, getData } from "../../utility/PaginationService";
 
 const CustomerList = () => {
-  const [pageNo, setPageNo] = useState(2);
+  const [pageNo, setPageNo] = useState(1);
   const [perPage, setPerPage] = useState(5);
   const [searchKey, setSearchKey] = useState(0);
 
@@ -17,7 +18,7 @@ const CustomerList = () => {
 
   useEffect(() => {
     customerListService(pageNo, perPage, searchKey);
-  }, []);
+  }, [pageNo]);
 
   const handlePerPage = (e) => {
     setPerPage(e.target.value);
@@ -33,27 +34,34 @@ const CustomerList = () => {
     customerListService(pageNo, perPage, searchKey);
   };
 
-  // Pagination code
-  const skipRow = function (page, limit) {
-    let array = [];
-    const startIndex = (page - 1) * limit;
-    const endIndex = Math.min(startIndex + limit, customers.length);
+  //Paginatin code
 
-    for (let i = startIndex; i < endIndex; i++) {
-      array.push(customers[i]);
+  const totaData = totalCustomer ? totalCustomer[0].total : 0;
+  const total = Math.ceil(totaData / perPage);
+
+  const onPageChange = (value) => {
+    console.log(value, pageNo);
+    if (value === "first" || value === "...") {
+      setPageNo(1);
+    } else if (value === "backward") {
+      if (pageNo !== 1) {
+        setPageNo(pageNo - 1);
+      }
+    } else if (value === "forward") {
+      if (pageNo !== total) {
+        setPageNo(pageNo + 1);
+      }
+    } else if (value === "last" || value === "...") {
+      setPageNo(total);
+    } else {
+      setPageNo(value);
     }
-
-    return array;
   };
-  skipRow(pageNo, perPage);
-  // Extract the total number of customers from the totalCustomer array
-  const totalCustomersFromBackend =
-    totalCustomer.length > 0 ? totalCustomer[0].total : 0;
 
-  // Calculate the total number of pages based on the total number of customers from the backend and items per page.
-  const totalPages = Math.ceil(totalCustomersFromBackend / perPage);
-  console.log(totalCustomer);
-  console.log(totalPages);
+  const updateCustomer = (id) => {
+    setOpen(true);
+    setUpdateId(id);
+  };
 
   return (
     <>
@@ -131,6 +139,7 @@ const CustomerList = () => {
                       <span
                         className="bg-cyan-200 p-[3px] text-lg shadow-sm cursor-pointer tooltip tooltip-warning"
                         data-tip="Update"
+                        onClick={() => updateCustomer(customer._id)}
                       >
                         <FaRegEdit />
                       </span>
@@ -146,12 +155,13 @@ const CustomerList = () => {
               ))}
             </table>
             {/* paginatio */}
-            <div className="join">
-              <button className="join-item btn">&laquo;</button>
-              <button className="join-item btn">&lsaquo;</button>
-              <button className="join-item btn">&rsaquo;</button>
-              <button className="join-item btn">&raquo;</button>
-            </div>
+            <Pagination
+              totalPage={total}
+              page={pageNo}
+              limit={perPage}
+              siblings={1}
+              onPageChange={onPageChange}
+            />
           </div>
         </div>
       </div>
