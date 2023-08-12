@@ -42,8 +42,8 @@ const CustomerList = () => {
 
   //Paginatin code
 
-  const totaData = totalCustomer ? totalCustomer[0].total : 0;
-  const total = Math.ceil(totaData / perPage);
+  const totalData = totalCustomer ? totalCustomer[0].total : 0;
+  const total = Math.ceil(totalData / perPage);
 
   const onPageChange = (value) => {
     if (value === "first" || value === "...") {

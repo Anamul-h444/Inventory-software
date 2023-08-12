@@ -6,7 +6,7 @@ export const supplierSlice = createSlice({
     List: [],
     ListTotal: 0,
     FormValue: {
-      name: "Anamul",
+      name: "",
       email: "",
       phone: "",
       address: "",

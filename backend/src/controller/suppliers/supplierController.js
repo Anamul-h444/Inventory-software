@@ -141,18 +141,20 @@ exports.SupplierList = async (req, res) => {
   }
 };
 
-// exports.DeleteSupplier = async (req, res) => {
-//   const id = req.params.id;
-//   let supplier = {};
-//   supplier = await Supplier.findOne({ supplierId: id });
-//   if (!supplier) {
-//     res.status(400).send("Supplier is not found");
-//   } else {
-//     const deletedSupplier = await Supplier.deleteOne(supplier);
-//     res.status(200).json({
-//       success: true,
-//       message: "Supplier delete successful",
-//       deletedSupplier,
-//     });
-//   }
-// };
+exports.DeleteSupplier = async (req, res) => {
+  const id = req.params.id;
+  const email = req.headers.email
+  const query = {_id:id, userEmail:email}
+  let supplier = {};
+  supplier = await Supplier.findOne(query);
+  if (!supplier) {
+    res.status(400).send("Supplier is not found");
+  } else {
+    const deletedSupplier = await Supplier.deleteOne(query);
+    res.status(200).json({
+      success: true,
+      message: "Supplier delete successful",
+      deletedSupplier,
+    });
+  }
+};

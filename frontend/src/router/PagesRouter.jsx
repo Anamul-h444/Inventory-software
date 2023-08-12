@@ -5,11 +5,14 @@ const Login = lazy(() => import("../components/auth/Login"));
 const Registration = lazy(() => import("../components/auth/Registration"));
 const MainLayout = lazy(() => import("../components/Layout/MainLayout"));
 import ProfilePage from "../pages/ProfilePage";
+
 import CustomerFormPage from "../pages/customer/CustomerFormPage";
 import UpdateCustomerPage from "../pages/customer/UpdateCustomerPage";
 import CustomerListPage from "../pages/customer/CustomerListPage";
 
 import CreateSupplierPage from "../pages/supplier/CreateSupplierPage";
+import SupplierListPage from "../pages/supplier/SupplierListPage";
+import UpdateSupplierPage from "../pages/supplier/UpdateSupplierPage";
 
 const PagesRouter = () => {
   return (
@@ -67,6 +70,22 @@ const PagesRouter = () => {
         element={
           <PrivateRoute>
             <CreateSupplierPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/supplier/list"
+        element={
+          <PrivateRoute>
+            <SupplierListPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/supplier/update/:id"
+        element={
+          <PrivateRoute>
+            <UpdateSupplierPage />
           </PrivateRoute>
         }
       />

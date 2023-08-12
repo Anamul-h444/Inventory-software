@@ -71,7 +71,7 @@ export const Pagination = ({
         {arr.map((value, index) => {
           if (value === page) {
             return (
-              <li>
+              <li key={index}>
                 <button
                   onClick={() => onPageChange(value)}
                   key={index}

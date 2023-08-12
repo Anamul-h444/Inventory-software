@@ -106,7 +106,7 @@ export const customerListService = async (pageNo, perPage, searchValue) => {
         store.dispatch(setCustomerListTotal(result.data["data"][0]["total"]));
       } else {
         store.dispatch(setCustomerList([]));
-        store.dispatch(setCustomerListTotal("0"));
+        store.dispatch(setCustomerListTotal(0));
         toast.error("No Data Found");
       }
     } else {
