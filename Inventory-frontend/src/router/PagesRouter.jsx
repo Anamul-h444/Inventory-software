@@ -6,6 +6,7 @@ const Registration = lazy(() => import("../components/auth/Registration"));
 const MainLayout = lazy(() => import("../components/Layout/MainLayout"));
 import ProfilePage from "../pages/ProfilePage";
 import CustomerFormPage from "../pages/customer/CustomerFormPage";
+import UpdateCustomerPage from "../pages/customer/UpdateCustomerPage";
 import CustomerListPage from "../pages/customer/CustomerListPage";
 
 const PagesRouter = () => {
@@ -33,10 +34,18 @@ const PagesRouter = () => {
       />
       {/* Customer Route Start */}
       <Route
-        path="/customer/form"
+        path="/customer/create"
         element={
           <PrivateRoute>
             <CustomerFormPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/customer/update/:id"
+        element={
+          <PrivateRoute>
+            <UpdateCustomerPage />
           </PrivateRoute>
         }
       />
@@ -48,6 +57,7 @@ const PagesRouter = () => {
           </PrivateRoute>
         }
       />
+
       {/* Customer Route End */}
     </Routes>
   );

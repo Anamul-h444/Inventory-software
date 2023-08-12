@@ -4,10 +4,16 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { BsSearch } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import Loader from "../../utility/Loader";
-import { customerListService } from "../../api/ApiCustomer";
-import { Pagination, getData } from "../../utility/PaginationService";
+import {
+  customerListService,
+  deleteCustomerRequest,
+} from "../../api/ApiCustomer";
+import { Pagination } from "../../utility/PaginationService";
+import { useNavigate } from "react-router-dom";
+import { DeleteAlert } from "../../utility/DeleteAlert";
 
 const CustomerList = () => {
+  const navigate = useNavigate();
   const [pageNo, setPageNo] = useState(1);
   const [perPage, setPerPage] = useState(5);
   const [searchKey, setSearchKey] = useState(0);
@@ -40,7 +46,6 @@ const CustomerList = () => {
   const total = Math.ceil(totaData / perPage);
 
   const onPageChange = (value) => {
-    console.log(value, pageNo);
     if (value === "first" || value === "...") {
       setPageNo(1);
     } else if (value === "backward") {
@@ -58,9 +63,14 @@ const CustomerList = () => {
     }
   };
 
-  const updateCustomer = (id) => {
-    setOpen(true);
-    setUpdateId(id);
+  const deleteHandler = async (id) => {
+    let result = await DeleteAlert();
+    if (result.isConfirmed) {
+      let deleteResult = await deleteCustomerRequest(id);
+      if (deleteResult) {
+        customerListService(pageNo, perPage, searchKey);
+      }
+    }
   };
 
   return (
@@ -139,13 +149,16 @@ const CustomerList = () => {
                       <span
                         className="bg-cyan-200 p-[3px] text-lg shadow-sm cursor-pointer tooltip tooltip-warning"
                         data-tip="Update"
-                        onClick={() => updateCustomer(customer._id)}
+                        onClick={() =>
+                          navigate(`/customer/update/${customer._id}`)
+                        }
                       >
                         <FaRegEdit />
                       </span>
                       <span
                         className="bg-rose-200 p-[3px] text-lg shadow-sm cursor-pointer tooltip tooltip-error"
                         data-tip="Delete"
+                        onClick={() => deleteHandler(customer._id)}
                       >
                         <RiDeleteBinLine />
                       </span>
@@ -154,7 +167,7 @@ const CustomerList = () => {
                 </tbody>
               ))}
             </table>
-            {/* paginatio */}
+            {/* pagination */}
             <Pagination
               totalPage={total}
               page={pageNo}

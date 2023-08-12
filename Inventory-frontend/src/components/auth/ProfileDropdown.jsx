@@ -1,16 +1,16 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
 import { PiUserLight } from "react-icons/pi";
 import profileImg from "../../assets/images/profileImg.jpg";
-import { signout } from "../../router/auth";
+import { removeSessions } from "../../router/sessionHelper";
 
 const ProfileDropdown = () => {
   const navigate = useNavigate();
-  const handleSignout = useCallback(() => {
-    signout();
-    navigate("/");
-  }, []);
+
+  const handleSignout = () => {
+    removeSessions();
+  };
 
   return (
     <div className="w-48 h-56 bg-white rounded-md absolute top-11 right-0 shadow-md divide-y">

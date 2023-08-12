@@ -64,6 +64,7 @@ module.exports.login = async (req, res) => {
 module.exports.updateUser = async (req, res) => {
   const id = req.params.id;
   const email = req.headers.email;
+  console.log(id, email);
 
   try {
     let user = await User.findOne({ _id: id, email: email });
@@ -138,11 +139,10 @@ module.exports.getUsers = async (req, res) => {
   }
 };
 
-exports.getUserById = async (req, res) => {
-  const id = req.params.id;
+exports.getUserDetails = async (req, res) => {
   const email = req.headers.email;
   try {
-    const user = await User.find({ _id: id, email: email });
+    const user = await User.find({ email: email });
     if (user.length === 0) {
       // user not found
       throw new Error("User not found");

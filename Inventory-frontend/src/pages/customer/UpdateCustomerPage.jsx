@@ -4,12 +4,12 @@ const CustomerForm = lazy(() =>
 );
 import MainLayout from "../../components/Layout/MainLayout";
 
-const CustomerFormPage = () => {
+const UpdateCustomerPage = () => {
   return (
-    <MainLayout title="Customer Form">
+    <MainLayout title="Update Form">
       <CustomerForm />
     </MainLayout>
   );
 };
 
-export default CustomerFormPage;
+export default UpdateCustomerPage;

@@ -10,8 +10,8 @@ app.listen(port, () => {
 });
 
 /* Connection with database */
-//const database = process.env.db_local;
-const database = process.env.db_atlas;
+const database = process.env.db_local;
+//const database = process.env.db_atlas;
 mongoose
   .connect(database)
   .then(() => {

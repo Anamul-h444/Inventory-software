@@ -7,7 +7,7 @@ const {
   updateUser,
   deleteUser,
   getUsers,
-  getUserById,
+  getUserDetails,
 } = require("../../controller/users/userController");
 
 const {
@@ -21,7 +21,7 @@ router.post("/registration", registration);
 router.post("/login", login);
 router.post("/update/:id", [userAuth], updateUser);
 router.delete("/delete/:id", [userAuth, adminAuth], deleteUser);
-router.get("/get/:id", [userAuth], getUserById);
+router.get("/get/details", [userAuth], getUserDetails);
 router.get("/get", [userAuth], getUsers);
 
 //Reset Password

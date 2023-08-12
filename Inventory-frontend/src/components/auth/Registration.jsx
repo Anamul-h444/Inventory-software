@@ -3,10 +3,10 @@ import { Form, Formik } from "formik";
 import FormikControl from "../../control/FormikControl";
 import backgroundImage from "../../assets/images/bg.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
 import { register } from "../../api/ApiAuth";
 import { toast } from "react-hot-toast";
 import Loader from "../../utility/Loader";
+import { userValidation } from "../../validationSchema/UserValidation";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -18,27 +18,6 @@ const Registration = () => {
     mobile: "",
     password: "",
   };
-
-  const validationSchema = Yup.object({
-    firstName: Yup.string().required("Required !"),
-    lastName: Yup.string().required("Required !"),
-    mobile: Yup.string()
-      .required("Required !")
-      .matches(/^(?:\+?88)?01[3-9]\d{8}$/, "Invalid Mobile number !"),
-    email: Yup.string()
-      .required("Required !")
-      .matches(
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        "Invalid email!"
-      ),
-    password: Yup.string()
-      .required("Required !")
-      .min(8, "Password must be at least 8 characters !")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-      ),
-  });
 
   const onSubmit = (values, onSubmitProps) => {
     setIsLoading(true);
@@ -79,7 +58,7 @@ const Registration = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
-          validationSchema={validationSchema}
+          validationSchema={userValidation}
         >
           {(formik) => (
             <Form className="flex flex-col space-y-7">

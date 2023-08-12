@@ -32,7 +32,7 @@ export const sidebarItems = [
       {
         title: "New Customer",
         icon: <BsCircle size={12} className="side-bar-subitem-icon" />,
-        url: "/customer/form",
+        url: "/customer/create",
       },
       {
         title: "Customer List",

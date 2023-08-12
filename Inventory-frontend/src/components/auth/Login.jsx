@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../api/ApiAuth";
 import { toast } from "react-hot-toast";
 import Loader from "../../utility/Loader";
-import { authenticate } from "../../router/auth";
+import { setToken, setUserDetail } from "../../router/sessionHelper";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,13 +20,13 @@ const Login = () => {
     setIsLoading(true);
     login(values)
       .then((res) => {
-        console.log(res.data.token);
-        authenticate(res.data.token, () => {
-          toast.success("Login Successful !");
-        });
+        console.log(res.data.user);
+        setToken(res.data.token);
+        setUserDetail(res.data.user);
+        toast.success("Login Successful !");
         setTimeout(() => {
-          navigate('/layout')
-        },2000)
+          navigate("/layout");
+        }, 2000);
       })
       .catch((err) => {
         let errMsg = "Something went wrong!";

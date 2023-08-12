@@ -5,7 +5,12 @@ export const customerSlice = createSlice({
   initialState: {
     List: [],
     ListTotal: 0,
-    FormValue: {},
+    FormValue: {
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+    },
   },
   reducers: {
     setCustomerList: (state, action) => {
@@ -15,10 +20,17 @@ export const customerSlice = createSlice({
       state.ListTotal = action.payload;
     },
     setFormValue: (state, action) => {
-      state.FormValue = action.payload;
+      state.FormValue[`${action.payload.name}`] = action.payload.value;
+    },
+    ResetFormValue: (state, action) => {
+      Object.keys(state.FormValue).forEach((i) => (state.FormValue[i] = ""));
     },
   },
 });
-export const { setCustomerList, setCustomerListTotal, setFormValue } =
-  customerSlice.actions;
+export const {
+  setCustomerList,
+  setCustomerListTotal,
+  setFormValue,
+  ResetFormValue,
+} = customerSlice.actions;
 export default customerSlice.reducer;

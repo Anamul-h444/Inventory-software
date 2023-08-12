@@ -94,6 +94,34 @@ exports.ReadCustomerById = async (req, res) => {
   }
 };
 
+exports.deletedCustomer = async (req, res) => {
+  const id = req.params.id;
+  const email = req.headers.email;
+
+  try {
+    const customer = await Customer.find({ _id: id, userEmail: email });
+
+    if (!customer || customer.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Customer not found" });
+    }
+
+    const deletedCustomer = await Customer.deleteOne({
+      _id: id,
+      userEmail: email,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Customer deleted successfully",
+      deletedCustomer,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 exports.CustomerList = async (req, res) => {
   const email = req.headers.email;
   const searchKeyword = req.params.searchKeyword;
@@ -140,19 +168,3 @@ exports.CustomerList = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
-
-// exports.DeleteSupplier = async (req, res) => {
-//   const id = req.params.id;
-//   let supplier = {};
-//   supplier = await Supplier.findOne({ supplierId: id });
-//   if (!supplier) {
-//     res.status(400).send("Supplier is not found");
-//   } else {
-//     const deletedSupplier = await Supplier.deleteOne(supplier);
-//     res.status(200).json({
-//       success: true,
-//       message: "Supplier delete successful",
-//       deletedSupplier,
-//     });
-//   }
-// };
