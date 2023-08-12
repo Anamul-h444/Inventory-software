@@ -49,12 +49,12 @@ export const sidebarItems = [
       {
         title: "New Supplier",
         icon: <BsCircle size={12} className="side-bar-subitem-icon" />,
-        url: "/SupplierCreateUpdatePage",
+        url: "/supplier/create",
       },
       {
         title: "Supplier List",
         icon: <BsCircle size={12} className="side-bar-subitem-icon" />,
-        url: "/SupplierListPage",
+        url: "/supplier/list",
       },
     ],
   },

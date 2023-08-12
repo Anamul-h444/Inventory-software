@@ -9,6 +9,8 @@ import CustomerFormPage from "../pages/customer/CustomerFormPage";
 import UpdateCustomerPage from "../pages/customer/UpdateCustomerPage";
 import CustomerListPage from "../pages/customer/CustomerListPage";
 
+import CreateSupplierPage from "../pages/supplier/CreateSupplierPage";
+
 const PagesRouter = () => {
   return (
     <Routes>
@@ -59,6 +61,16 @@ const PagesRouter = () => {
       />
 
       {/* Customer Route End */}
+      {/* Supplier Route Start */}
+      <Route
+        path="/supplier/create"
+        element={
+          <PrivateRoute>
+            <CreateSupplierPage />
+          </PrivateRoute>
+        }
+      />
+      {/* Supplier Route End */}
     </Routes>
   );
 };
