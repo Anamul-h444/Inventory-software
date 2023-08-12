@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import store from "../redux/store";
-import { setLoader, SetProfile } from "../redux/slice-slate/loaderSlice";
+import { setLoader } from "../redux/slice-slate/loaderSlice";
 import { getToken } from "../router/sessionHelper";
 import { setProfile } from "../redux/slice-slate/profileSlice";
 
@@ -17,40 +17,46 @@ export const login = (user) => {
   return axios.post(`${API}/login`, user);
 };
 
-export const getUserDetails = (id) => {
+export const getUserDetails = async () => {
   try {
     const URL = `${API}/get/details`;
     store.dispatch(setLoader(true));
-    const result = axios.get(URL, AxiosHeader);
+    const result = await axios.get(URL, AxiosHeader);
+
     store.dispatch(setLoader(false));
     if (result.status === 200 && result.data.success === true) {
       const data = result.data.user[0];
-      setProfile;
+      store.dispatch(setProfile(data));
       return true;
     } else {
       toast.error("Request Fail! Try Again");
       return false;
     }
   } catch (error) {
+    console.log("error", error);
     toast.error(error.response.data);
     store.dispatch(setLoader(false));
     return false;
   }
 };
 
-export async function GetProfileDetails() {
+export async function updateProfileRequest(id, userData) {
   try {
-    store.dispatch(ShowLoader());
-    let URL = BaseURL + "/ProfileDetails";
-    let res = await axios.get(URL, AxiosHeader);
-    store.dispatch(HideLoader());
-    if (res.status === 200) {
-      store.dispatch(SetProfile(res.data["data"][0]));
+    const URL = `${API}/update/${id}`;
+    store.dispatch(setLoader(true));
+    const result = await axios.post(URL, userData, AxiosHeader);
+    if (result.status === 200 && result.data.success === true) {
+      toast.success("Update success!");
+      store.dispatch(setLoader(false));
+      return true;
     } else {
-      ErrorToast("Something Went Wrong");
+      toast.error("Request Fail! Try Later");
+      store.dispatch(setLoader(false));
+      return false;
     }
-  } catch (e) {
-    store.dispatch(HideLoader());
-    ErrorToast("Something Went Wrong");
+  } catch (error) {
+    toast.error(error.response.data);
+    store.dispatch(setLoader(false));
+    return false;
   }
 }
