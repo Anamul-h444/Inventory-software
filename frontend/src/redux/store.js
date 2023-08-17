@@ -4,6 +4,9 @@ import customerReducer from "./slice-slate/customerSlice";
 import loaderReducer from "./slice-slate/loaderSlice";
 import profileReducer from "./slice-slate/profileSlice";
 import supplierReducer from "./slice-slate/supplierSlice";
+import  expenseTypeReducer from "./slice-slate/expenseTypeSlice.js"
+import  brandReducer from "../redux/slice-slate/brandSlice.js"
+import  categoryReducer from "../redux/slice-slate/categorySlice.js"
 
 export default configureStore({
   reducer: {
@@ -11,5 +14,8 @@ export default configureStore({
     loader: loaderReducer,
     profile: profileReducer,
     supplier: supplierReducer,
+    brand: brandReducer,
+    category: categoryReducer,
+    expenseType:expenseTypeReducer,
   },
 });

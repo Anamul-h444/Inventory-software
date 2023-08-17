@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { userAuth } = require("../../middleware/authorise");
-const { checkValidation } = require("../../middleware/checkValidation");
 const {
   CreateExpenseType,
   updatedExpenseType,

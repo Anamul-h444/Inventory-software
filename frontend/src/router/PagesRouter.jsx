@@ -12,7 +12,19 @@ import CustomerListPage from "../pages/customer/CustomerListPage";
 
 import CreateSupplierPage from "../pages/supplier/CreateSupplierPage";
 import SupplierListPage from "../pages/supplier/SupplierListPage";
-import UpdateSupplierPage from "../pages/supplier/UpdateSupplierPage";
+import UpdateSupplierPage from "../pages/supplier/UpdateSupplierPage.jsx";
+
+import CreateCategoryPage from "../pages/category/CreateCategoyPage.jsx";
+import CategoryListPage from "../pages/category/CategoryListPage";
+import UpdateCategoryPage from "../pages/category/UpdateCategoryPage";
+
+import CreateExpenseTypePage from "../pages/expenseType/CreateExpenseTypePage.jsx";
+import ExpenseTypeListPage from "../pages/expenseType/ExpenseTypeListPage.jsx";
+import UpdateExpenseTypePage from "../pages/expenseType/UpdateExpeseTypePage.jsx";
+
+import CreateBrandPage from "../pages/brand/CreateBrandPage.jsx";
+import UpdateBrandPage from "../pages/brand/UpdateBrandPage";
+import BrandListPage from "../pages/brand/BrandListPage";
 
 const PagesRouter = () => {
   return (
@@ -90,6 +102,100 @@ const PagesRouter = () => {
         }
       />
       {/* Supplier Route End */}
+
+      {/* Expense Route Start */}
+      <Route
+        path="/expenseType/create"
+        element={
+          <PrivateRoute>
+            <CreateExpenseTypePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/expenseType/list"
+        element={
+          <PrivateRoute>
+            <ExpenseTypeListPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/expenseType/update/:id"
+        element={
+          <PrivateRoute>
+            <UpdateExpenseTypePage />
+          </PrivateRoute>
+        }
+      />
+      {/*Expense route*/}
+      <Route
+        path="/expense/create"
+        element={<PrivateRoute>{/*<CreateExpensePage />*/}</PrivateRoute>}
+      />
+      <Route
+        path="/expense/list"
+        element={<PrivateRoute>{/*<ExpenseListPage />*/}</PrivateRoute>}
+      />
+      <Route
+        path="/expense/update/:id"
+        element={<PrivateRoute>{/*<UpdateExpensePage />*/}</PrivateRoute>}
+      />
+      {/* Expense Route End */}
+
+      {/* Brand Route Start */}
+      <Route
+        path="/brand/create"
+        element={
+          <PrivateRoute>
+            <CreateBrandPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/brand/list"
+        element={
+          <PrivateRoute>
+            <BrandListPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/brand/update/:id"
+        element={
+          <PrivateRoute>
+            <UpdateBrandPage />
+          </PrivateRoute>
+        }
+      />
+      {/* Brand Route End */}
+
+      {/* Category Route Start */}
+      <Route
+        path="/category/create"
+        element={
+          <PrivateRoute>
+            <CreateCategoryPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/category/list"
+        element={
+          <PrivateRoute>
+            <CategoryListPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/category/update/:id"
+        element={
+          <PrivateRoute>
+            <UpdateCategoryPage />
+          </PrivateRoute>
+        }
+      />
+      {/* Category Route End */}
     </Routes>
   );
 };

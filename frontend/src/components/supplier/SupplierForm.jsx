@@ -22,14 +22,6 @@ const SupplierForm = () => {
   const supplierData = useSelector((state) => state.supplier.FormValue);
   const [objectId, SetObjectID] = useState(id || 0);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     SetObjectID(id);
-  //     (async () => {
-  //       const success = await getSupplierService(id);
-  //     })();
-  //   }
-  // }, [id]);
 
   useEffect(() => {
     if (id) {

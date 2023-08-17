@@ -6,7 +6,7 @@ import {
   setCustomerListTotal,
   setFormValue,
   ResetFormValue,
-} from "../../src/redux/slice-slate/customerSlice";
+} from "../redux/slice-slate/customerSlice.js";
 import { setLoader } from "../redux/slice-slate/loaderSlice";
 import { getToken } from "../router/sessionHelper";
 

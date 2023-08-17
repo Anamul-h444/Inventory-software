@@ -84,9 +84,9 @@ exports.ReadCategoryById = async (req, res) => {
 
   try {
     const category = await Category.find({ _id: id, userEmail: email });
-    if (supplier.length === 0) {
+    if (category.length === 0) {
       // Supplier not found
-      throw new Error("Supplier not found");
+      throw new Error("Category is not found");
     }
     res.status(200).json({
       success: true,

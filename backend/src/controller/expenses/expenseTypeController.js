@@ -61,11 +61,11 @@ exports.updatedExpenseType = async (req, res) => {
 
 exports.ReadExpenseType = async (req, res) => {
   try {
-    const brnads = await ExpenseType.find({ userEmail: req.headers.email });
+    const expenseType = await ExpenseType.find({ userEmail: req.headers.email });
     res.status(200).json({
       success: true,
       message: "ExpenseType retrieved successful",
-      brnads,
+      expenseType,
     });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
@@ -147,13 +147,14 @@ exports.DeleteExpenseType = async (req, res) => {
     if (expenseType) {
       return res
         .status(200)
-        .json({ status: "associate", data: "Associate with Product" });
+        .json({ status: "associate", data: "Associate with expense" });
     } else {
       // Delete the expenseType
       const deletedexpenseType = await ExpenseType.findOneAndDelete({
         _id: id,
         userEmail: userEmail,
       });
+
       if (deletedexpenseType === null) {
         throw new Error("Expense type is not found");
       }

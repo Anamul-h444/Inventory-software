@@ -19,7 +19,7 @@ module.exports = (app) => {
   app.use("/api/supplier", suppliersRouter);
   app.use("/api/customer", customerRouter);
   app.use("/api/expenseType", expenseTypeRouter);
-  app.use("/api/expense", expenseRouter);
+  app.use("/api/expenseType", expenseRouter);
   app.use("/api/product", productRoute);
   app.use("/api/purchase", puchaseRouter);
   app.use("/api/sale", saleRouter);
