@@ -142,6 +142,7 @@ const ExpenseList = () => {
                   <th>Type</th>
                   <th>Amount</th>
                   <th>Note</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               {expense.map((expense, index) => (

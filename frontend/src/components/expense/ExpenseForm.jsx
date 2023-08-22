@@ -13,6 +13,7 @@ import {
 } from "../../api/ApiExpense";
 import { useParams, useNavigate } from "react-router-dom";
 import { ResetFormValue } from "../../redux/slice-slate/expenseSlice";
+import Select from "../../utility/Select";
 
 const ExpenseForm = () => {
   const navigate = useNavigate();
@@ -69,21 +70,13 @@ const ExpenseForm = () => {
         </h1>
         <form>
           <div className="flex flex-col space-y-7">
-            <select
-              onChange={handleChange}
+            <Select
               name="typeId"
+              onChange={handleChange}
               value={FormValue.typeId}
-              className="border border-gray-400 px-4 py-2 rounded-lg text-sm focus:outline-red-400 w-full cursor-pointer"
-            >
-              <option value="">Select Expense Type</option>
-              {expenseTypes.map((expenseType, index) => {
-                return (
-                  <option key={index} value={expenseType._id}>
-                    {expenseType.name}
-                  </option>
-                );
-              })}
-            </select>
+              optionValue={expenseTypes}
+              title="Select Expense Type"
+            />
 
             <Input
               type="text"
@@ -117,3 +110,21 @@ const ExpenseForm = () => {
 };
 
 export default ExpenseForm;
+
+{
+  /* <select
+              onChange={handleChange}
+              name="typeId"
+              value={FormValue.typeId}
+              className="border border-gray-400 px-4 py-2 rounded-lg text-sm focus:outline-red-400 w-full cursor-pointer"
+            >
+              <option value="">Select Expense Type</option>
+              {expenseTypes.map((expenseType, index) => {
+                return (
+                  <option key={index} value={expenseType._id}>
+                    {expenseType.name}
+                  </option>
+                );
+              })}
+            </select> */
+}

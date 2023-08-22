@@ -90,7 +90,7 @@ const ExpenseTypeList = () => {
         <div className="w-[95%] bg-white rounded-md shadow-md p-4">
           <div className="flex items-center justify-between">
             <div className="font-bold text-gray-500 text-sm">
-              <h1 className="text-lg font-[400] ">Supplier list</h1>{" "}
+              <h1 className="text-lg font-[400] ">Expenst type list</h1>{" "}
               {/* Updated heading style */}
             </div>
             <div className="flex space-x-3 items-center">
@@ -141,9 +141,6 @@ const ExpenseTypeList = () => {
                 <tr>
                   <th>No</th>
                   <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone No</th>
-                  <th>Address</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -153,8 +150,7 @@ const ExpenseTypeList = () => {
                   <tr>
                     <th>{index + 1}</th>
                     <td>{expenseType.name}</td>
-                    <td>{expenseType.email}</td>
-                    <td>{expenseType.phone}</td>
+
                     <td>{expenseType.address}</td>
                     <td className="flex space-x-3 items-center">
                       <span

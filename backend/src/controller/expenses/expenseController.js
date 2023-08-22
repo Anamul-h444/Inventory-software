@@ -60,7 +60,10 @@ module.exports.DeleteExpense = async (req, res) => {
     if (!expense) {
       res.status(400).send("Expense is not found");
     } else {
-      const deletedExpense = await Expense.deleteOne(expense);
+      const deletedExpense = await Expense.deleteOne({
+        _id: id,
+        userEmail: userEmail,
+      });
       res.status(200).json({
         success: true,
         message: "Expense delete successful",

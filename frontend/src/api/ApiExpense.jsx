@@ -107,7 +107,7 @@ export const deleteExpenseRequest = async (objectId) => {
     let URL = `${API}/delete/${objectId}`;
     store.dispatch(setLoader(true));
     const result = await axios.delete(URL, AxiosHeader);
-    if (result.status === 200 && result.data.status === "success") {
+    if (result.status === 200 && result.data.success === true) {
       toast.success("Delete success!");
       store.dispatch(setLoader(false));
       return true;
