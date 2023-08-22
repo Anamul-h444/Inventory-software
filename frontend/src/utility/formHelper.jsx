@@ -3,6 +3,8 @@ let MobileRegx = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
 let PasswordRegx =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
 
+const checkNumberRegx = /^\d+(\.\d+)?$/;
+
 class FormHelper {
   isEmpty(value) {
     return value.length === 0;
@@ -19,6 +21,11 @@ class FormHelper {
   isPassword(value) {
     return !PasswordRegx.test(value);
   }
+
+  isNotNumber(value) {
+    return !checkNumberRegx.test(value);
+  }
 }
 
-export const { isEmpty, isEmail, isMobile, isPassword } = new FormHelper();
+export const { isEmpty, isEmail, isMobile, isPassword, isNotNumber } =
+  new FormHelper();

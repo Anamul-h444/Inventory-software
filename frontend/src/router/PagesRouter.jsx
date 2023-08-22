@@ -26,6 +26,10 @@ import CreateBrandPage from "../pages/brand/CreateBrandPage.jsx";
 import UpdateBrandPage from "../pages/brand/UpdateBrandPage";
 import BrandListPage from "../pages/brand/BrandListPage";
 
+import CreateExpensePage from "../pages/expense/CreateExpensePage";
+import UpdateExpensepage from "../pages/expense/UpdateExpensepage";
+import ExpenseListPage from "../pages/expense/ExpenseListPage";
+
 const PagesRouter = () => {
   return (
     <Routes>
@@ -129,18 +133,30 @@ const PagesRouter = () => {
         }
       />
       {/*Expense route*/}
-      <Route
+      {/* <Route
         path="/expense/create"
-        element={<PrivateRoute>{/*<CreateExpensePage />*/}</PrivateRoute>}
+        element={
+          <PrivateRoute>
+            <CreateExpensePage />
+          </PrivateRoute>
+        }
       />
       <Route
         path="/expense/list"
-        element={<PrivateRoute>{/*<ExpenseListPage />*/}</PrivateRoute>}
+        element={
+          <PrivateRoute>
+            <ExpenseListPage />
+          </PrivateRoute>
+        }
       />
       <Route
         path="/expense/update/:id"
-        element={<PrivateRoute>{/*<UpdateExpensePage />*/}</PrivateRoute>}
-      />
+        element={
+          <PrivateRoute>
+            <UpdateExpensepage />
+          </PrivateRoute>
+        }
+      /> */}
       {/* Expense Route End */}
 
       {/* Brand Route Start */}
@@ -196,6 +212,21 @@ const PagesRouter = () => {
         }
       />
       {/* Category Route End */}
+
+      {/* Expense route */}
+      <Route
+        path="/expense/*"
+        element={
+          <PrivateRoute>
+            <Routes>
+              <Route path="create" element={<CreateExpensePage />} />
+              <Route path="list" element={<ExpenseListPage />} />
+              <Route path="update/:id" element={<UpdateExpensepage />} />
+            </Routes>
+          </PrivateRoute>
+        }
+      />
+      {/* Expense Route End */}
     </Routes>
   );
 };

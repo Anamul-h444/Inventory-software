@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  deleteExpenseTypeRequest,
-  expenseTypeListService,
-} from "../../api/ApiExpenseType.jsx";
+  deleteExpenseRequest,
+  expenseListService,
+} from "../../api/ApiExpense.jsx";
 import Loader from "../../utility/Loader";
 import { Pagination } from "../../utility/PaginationService";
 import { DeleteAlert } from "../../utility/DeleteAlert";
@@ -12,7 +12,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-const ExpenseTypeList = () => {
+const ExpenseList = () => {
   const navigate = useNavigate();
   //Supplier data state
   const [pageNo, setPageNo] = useState(1);
@@ -21,34 +21,33 @@ const ExpenseTypeList = () => {
 
   //Data from redux store
   const isLoading = useSelector((state) => state.loader.value);
-  const expenseType = useSelector((state) => state.expenseType.List);
-  const totalExpenseType = useSelector((state) => state.expenseType.ListTotal);
-  console.log(totalExpenseType);
+  const expense = useSelector((state) => state.expense.List);
+  const totalExpense = useSelector((state) => state.expense.ListTotal);
 
   //Call Api
   useEffect(() => {
     (async () => {
-      await expenseTypeListService(pageNo, perPage, searchKey);
+      await expenseListService(pageNo, perPage, searchKey);
     })();
   }, [pageNo]);
 
   //Update state with onChange
   const handlePerPage = async (e) => {
     setPerPage(e.target.value);
-    await expenseTypeListService(pageNo, e.target.value, searchKey);
+    await expenseListService(pageNo, e.target.value, searchKey);
   };
   const handleSearchKey = async (e) => {
     setSearchKey(e.target.value);
     if (e.target.value === 0) {
-      await expenseTypeListService(pageNo, perPage, searchKey);
+      await expenseListService(pageNo, perPage, searchKey);
     }
   };
   const clickSearch = async () => {
-    await expenseTypeListService(pageNo, perPage, searchKey);
+    await expenseListService(pageNo, perPage, searchKey);
   };
 
   //Pagination functionality
-  const totalData = totalExpenseType ? totalExpenseType[0].total : 0;
+  const totalData = totalExpense ? totalExpense[0].total : 0;
   const total = Math.ceil(totalData / perPage);
 
   const onPageChange = (value) => {
@@ -69,13 +68,13 @@ const ExpenseTypeList = () => {
     }
   };
 
-  //Delete Expense Type
+  //Delete Supplier
   const deleteHandler = async (id) => {
     let result = await DeleteAlert();
     if (result.isConfirmed) {
-      let deleteResult = await deleteExpenseTypeRequest(id);
+      let deleteResult = await deleteExpenseRequest(id);
       if (deleteResult) {
-        await expenseTypeListService(pageNo, perPage, searchKey);
+        await expenseListService(pageNo, perPage, searchKey);
       }
     }
   };
@@ -140,28 +139,24 @@ const ExpenseTypeList = () => {
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone No</th>
-                  <th>Address</th>
-                  <th>Action</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Note</th>
                 </tr>
               </thead>
-              {expenseType.map((expenseType, index) => (
+              {expense.map((expense, index) => (
                 <tbody key={index}>
-                  {/* row 1 */}
                   <tr>
                     <th>{index + 1}</th>
-                    <td>{expenseType.name}</td>
-                    <td>{expenseType.email}</td>
-                    <td>{expenseType.phone}</td>
-                    <td>{expenseType.address}</td>
+                    <td>{expense.type[0]["name"]}</td>
+                    <td>{expense.amount}</td>
+                    <td>{expense.note}</td>
                     <td className="flex space-x-3 items-center">
                       <span
                         className="bg-cyan-200 p-[3px] text-lg shadow-sm cursor-pointer tooltip tooltip-warning"
                         data-tip="Update"
                         onClick={() =>
-                          navigate(`/expenseType/update/${expenseType._id}`)
+                          navigate(`/expense/update/${expense._id}`)
                         }
                       >
                         <FaRegEdit />
@@ -169,7 +164,7 @@ const ExpenseTypeList = () => {
                       <span
                         className="bg-rose-200 p-[3px] text-lg shadow-sm cursor-pointer tooltip tooltip-error"
                         data-tip="Delete"
-                        onClick={() => deleteHandler(expenseType._id)}
+                        onClick={() => deleteHandler(expense._id)}
                       >
                         <RiDeleteBinLine />
                       </span>
@@ -193,4 +188,4 @@ const ExpenseTypeList = () => {
   );
 };
 
-export default ExpenseTypeList;
+export default ExpenseList;
