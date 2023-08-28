@@ -62,11 +62,11 @@ exports.UpdateBrnad = async (req, res) => {
 
 exports.ReadBrand = async (req, res) => {
   try {
-    const brnads = await Brand.find({ userEmail: req.headers.email });
+    const brands = await Brand.find({ userEmail: req.headers.email });
     res.status(200).json({
       success: true,
       message: "Brand retrieved successful",
-      brnads,
+      brands,
     });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });

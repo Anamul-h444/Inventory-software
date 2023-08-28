@@ -8,7 +8,6 @@ const Select = ({
   optionValue,
   ...rest
 }) => {
-  console.log(optionValue);
   return (
     <div className="flex flex-col space-y-2">
       <label htmlFor={name} className="text-sm ">

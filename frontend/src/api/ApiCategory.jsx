@@ -9,6 +9,7 @@ import {
   setCategoryList,
   setCategoryListTotal,
 } from "../redux/slice-slate/categorySlice.js";
+import { setCategory } from "../redux/slice-slate/productSlice";
 
 let API = "http://localhost:5000/api/category";
 
@@ -107,6 +108,25 @@ export const deleteCategoryRequest = async (objectId) => {
     const result = await axios.delete(URL, AxiosHeader);
     if (result.status === 200 && result.data.success === true) {
       toast.success(result.data.message); // Use result.data.message
+      store.dispatch(setLoader(false));
+      return true;
+    } else {
+      toast.error("Request Fail! Try Again");
+    }
+  } catch (error) {
+    toast.error(error.response.data);
+    store.dispatch(setLoader(false));
+    return false;
+  }
+};
+
+export const CategoryDropdown = async () => {
+  try {
+    let URL = `${API}/get`;
+    store.dispatch(setLoader(true));
+    const result = await axios.get(URL, AxiosHeader);
+    if (result.status === 200 && result.data.success === true) {
+      store.dispatch(setCategory(result.data.category));
       store.dispatch(setLoader(false));
       return true;
     } else {

@@ -8,6 +8,7 @@ import expenseTypeReducer from "./slice-slate/expenseTypeSlice.js";
 import brandReducer from "../redux/slice-slate/brandSlice.js";
 import categoryReducer from "../redux/slice-slate/categorySlice.js";
 import expenseReducer from "./slice-slate/expenseSlice";
+import productReducer from "./slice-slate/productSlice";
 
 export default configureStore({
   reducer: {
@@ -19,5 +20,6 @@ export default configureStore({
     category: categoryReducer,
     expenseType: expenseTypeReducer,
     expense: expenseReducer,
+    product: productReducer,
   },
 });

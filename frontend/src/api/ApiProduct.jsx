@@ -1,17 +1,16 @@
 import { getToken } from "../router/sessionHelper";
 import { setLoader } from "../redux/slice-slate/loaderSlice";
 import {
-  ResetFormValue,
+  setProductList,
+  setProductListTotal,
   setFormValue,
-  setBrandList,
-  setBrandListTotal,
-} from "../redux/slice-slate/brandSlice.js";
+  ResetFormValue,
+} from "../redux/slice-slate/productSlice";
 import { toast } from "react-hot-toast";
 import store from "../redux/store";
 import axios from "axios";
-import { setBrand } from "../redux/slice-slate/productSlice";
 
-let API = "http://localhost:5000/api/brand";
+let API = "http://localhost:5000/api/product";
 
 const token = getToken();
 
@@ -22,7 +21,7 @@ const AxiosHeader = {
   },
 };
 
-export const createUpdateBrandRequest = async (formValue, objectId) => {
+export const createUpdateProductRequest = async (formValue, objectId) => {
   try {
     store.dispatch(setLoader(true));
     let URL = `${API}/create`;
@@ -41,31 +40,32 @@ export const createUpdateBrandRequest = async (formValue, objectId) => {
       return false;
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
     toast.error(error.response.data);
     store.dispatch(setLoader(false));
     return false;
   }
 };
 
-export const brandListService = async (pageNo, perPage, searchValue) => {
+export const productListService = async (pageNo, perPage, searchValue) => {
   try {
     store.dispatch(setLoader(true));
     let URL = `${API}/get/${pageNo}/${perPage}/${searchValue}`;
     const result = await axios.get(URL, AxiosHeader);
     if (result.status === 200 && result.data.success === true) {
       if (result.data["data"][0]["rows"].length > 0) {
-        store.dispatch(setBrandList(result.data["data"][0]["rows"]));
-        store.dispatch(setBrandListTotal(result.data["data"][0]["total"]));
+        store.dispatch(setProductList(result.data["data"][0]["rows"]));
+        store.dispatch(setProductListTotal(result.data["data"][0]["total"]));
       } else {
-        store.dispatch(setBrandList([]));
-        store.dispatch(setBrandListTotal(0));
+        store.dispatch(setProductList([]));
+        store.dispatch(setProductListTotal(0));
         toast.error("No Data Found");
       }
     } else {
       toast.error("Something went wrong!");
     }
   } catch (err) {
+    console.log(err);
     let errMsg = "Something went wrong!";
     if (err.response) {
       errMsg = err.response.data;
@@ -78,15 +78,25 @@ export const brandListService = async (pageNo, perPage, searchValue) => {
   }
 };
 
-export const getBrandService = async (id) => {
+export const getProductService = async (id) => {
   try {
     let URL = `${API}/get/${id}`;
     store.dispatch(setLoader(true));
     const result = await axios.get(URL, AxiosHeader);
     store.dispatch(setLoader(false));
     if (result.status === 200 && result.data.success === true) {
-      let FormValue = result.data["brand"][0];
+      let FormValue = result.data["product"][0];
+      store.dispatch(
+        setFormValue({ name: "categoryId", value: FormValue.categoryId })
+      );
+      store.dispatch(
+        setFormValue({ name: "brandId", value: FormValue.brandId })
+      );
       store.dispatch(setFormValue({ name: "name", value: FormValue.name }));
+      store.dispatch(setFormValue({ name: "unit", value: FormValue.unit }));
+      store.dispatch(
+        setFormValue({ name: "details", value: FormValue.details })
+      );
       return true;
     } else {
       toast.error("Request Fail! Try Again");
@@ -99,38 +109,21 @@ export const getBrandService = async (id) => {
   }
 };
 
-export const deleteBrandRequest = async (objectId) => {
+export const deleteExpenseRequest = async (objectId) => {
   try {
     let URL = `${API}/delete/${objectId}`;
     store.dispatch(setLoader(true));
     const result = await axios.delete(URL, AxiosHeader);
     if (result.status === 200 && result.data.success === true) {
-      toast.success(result.data.message); // Use result.data.message
+      toast.success("Delete success!");
       store.dispatch(setLoader(false));
       return true;
     } else {
       toast.error("Request Fail! Try Again");
-    }
-  } catch (error) {
-    toast.error(error.response.data);
-    store.dispatch(setLoader(false));
-    return false;
-  }
-};
-
-export const BrandDropdown = async () => {
-  try {
-    let URL = `${API}/get`;
-    store.dispatch(setLoader(true));
-    const result = await axios.get(URL, AxiosHeader);
-    if (result.status === 200 && result.data.success === true) {
-      store.dispatch(setBrand(result.data.brands));
       store.dispatch(setLoader(false));
-      return true;
-    } else {
-      toast.error("Request Fail! Try Again");
     }
   } catch (error) {
+    console.log(error);
     toast.error(error.response.data);
     store.dispatch(setLoader(false));
     return false;

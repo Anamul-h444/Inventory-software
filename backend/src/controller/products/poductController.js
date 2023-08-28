@@ -44,7 +44,7 @@ exports.UpdateProduct = async (req, res) => {
         unit,
         details,
       });
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         message: "Product update successful",
         updatedProduct,
@@ -112,7 +112,7 @@ exports.ProductList = async (req, res) => {
             from: "categories",
             localField: "categoryId",
             foreignField: "_id",
-            as: "categories",
+            as: "category",
           },
         },
         {
@@ -120,7 +120,7 @@ exports.ProductList = async (req, res) => {
             from: "brands",
             localField: "brandId",
             foreignField: "_id",
-            as: "brands",
+            as: "brand",
           },
         },
         { $match: searchQuery },

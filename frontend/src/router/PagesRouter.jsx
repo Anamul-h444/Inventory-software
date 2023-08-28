@@ -30,6 +30,10 @@ import CreateExpensePage from "../pages/expense/CreateExpensePage";
 import UpdateExpensepage from "../pages/expense/UpdateExpensepage";
 import ExpenseListPage from "../pages/expense/ExpenseListPage";
 
+import CreateProductPage from "../pages/products/CreateProductPage";
+import UpdateProductPage from "../pages/products/UpdateProductPage";
+import ProductListPage from "../pages/products/ProductListPage";
+
 const PagesRouter = () => {
   return (
     <Routes>
@@ -227,6 +231,21 @@ const PagesRouter = () => {
         }
       />
       {/* Expense Route End */}
+
+      {/* Product route */}
+      <Route
+        path="/product/*"
+        element={
+          <PrivateRoute>
+            <Routes>
+              <Route path="create" element={<CreateProductPage />} />
+              <Route path="list" element={<ProductListPage />} />
+              <Route path="update/:id" element={<UpdateProductPage />} />
+            </Routes>
+          </PrivateRoute>
+        }
+      />
+      {/* Product Route End */}
     </Routes>
   );
 };
